@@ -47,9 +47,9 @@ Language server for:
 
 - [x] completion
 
-![document hover](https://github.com/Freed-Wu/autoconf-language-server/assets/32936898/d0b7c7f3-28bb-4952-b691-0bb42e9c8272)
+![document hover](https://github.com/Freed-Wu/make-language-server/assets/32936898/d0b7c7f3-28bb-4952-b691-0bb42e9c8272)
 
-![completion](https://github.com/Freed-Wu/autoconf-language-server/assets/32936898/a9b05178-04e3-4115-993b-a7427f6625d6)
+![completion](https://github.com/Freed-Wu/make-language-server/assets/32936898/a9b05178-04e3-4115-993b-a7427f6625d6)
 
 Read
 [![readthedocs](https://shields.io/readthedocs/make-language-server)](https://make-language-server.readthedocs.io)
@@ -57,4 +57,4 @@ to know more.
 
 ## Similar Projects
 
-- [autoconf-language-server](https://github.com/Freed-Wu/autoconf-language-server)
+- [make-language-server](https://github.com/Freed-Wu/make-language-server)
