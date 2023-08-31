@@ -29,7 +29,7 @@
 [![github/repo-size](https://shields.io/github/repo-size/Freed-Wu/tmux-status-bar)](https://github.com/Freed-Wu/tmux-status-bar)
 [![github/v](https://shields.io/github/v/release/Freed-Wu/tmux-status-bar)](https://github.com/Freed-Wu/tmux-status-bar)
 
-[![cpan/v](https://img.shields.io/cpan/v/term-tmux-statusbar)](https://metacpan.org/pod/Term::Tmux::StatusBar::README)
+[![cpan/v](https://img.shields.io/cpan/v/Term-Tmux-StatusBar)](https://metacpan.org/pod/Term::Tmux::StatusBar)
 
 ![screenshot](https://github.com/Freed-Wu/tmux-status-bar/assets/32936898/ecd6dd2e-fdbc-43fd-a245-a8b2df058202)
 
@@ -128,7 +128,7 @@ save length.
       offline. We don't display `1080ti` to save length.
    2. `#{?#{||:#{==:#{bitahub_status_rtx3090},},#{==:#{bitahub_status_gtx1080ti},}},,}`:
       when only both `#{bitahub_status_gtx1080ti}` and
-      `#{bitahub_status_rtx3090}` are not empty, a seperator will be displayed.
+      `#{bitahub_status_rtx3090}` are not empty, a separator will be displayed.
    3. Same as first part.
 4. Display battery percentage and charge time or net speed. That is because for
    desktop, which doesn't have a battery. So we display battery information for

@@ -6,8 +6,8 @@ use Exporter qw(import);
 our @EXPORT = qw( main window_status_current_format_left parse
   window_status_current_format_right status_left status_right );
 
-my $delimiter = ';';
-my $sub_delimiter = ',';
+my $delimiter         = ';';
+my $sub_delimiter     = ',';
 my $default_left_sep  = '';
 my $default_right_sep = '';
 my $default_format    = ' %s ';
@@ -30,12 +30,12 @@ sub get_tokens {
 }
 
 sub window_status_current_format_left {
-    my $out     = '';
-    my $sep     = $default_left_sep;
-    my $format  = $default_format;
-    my $fg      = '';
-    my $bg      = '';
-    my $text    = '';
+    my $out      = '';
+    my $sep      = $default_left_sep;
+    my $format   = $default_format;
+    my $fg       = '';
+    my $bg       = '';
+    my $text     = '';
     my $old_text = '';
     foreach (@_) {
         unless (/$sub_delimiter/) {
@@ -50,14 +50,15 @@ sub window_status_current_format_left {
 }
 
 sub status_left {
-    my $last_bg = '';
-    my $out     = '';
-    my $sep     = $default_left_sep;
-    my $format  = $default_format;
-    my $fg      = '';
-    my $bg      = '';
-    my $text    = '';
+    my $last_bg  = '';
+    my $out      = '';
+    my $sep      = $default_left_sep;
+    my $format   = $default_format;
+    my $fg       = '';
+    my $bg       = '';
+    my $text     = '';
     my $old_text = '';
+
     foreach (@_) {
         unless (/$sub_delimiter/) {
             ( $format, $sep ) = change_format_sep( $_, $format, $sep );
@@ -77,12 +78,12 @@ sub status_left {
 }
 
 sub right {
-    my $out    = '';
-    my $sep    = $default_right_sep;
-    my $format = $default_format;
-    my $fg     = '';
-    my $bg     = '';
-    my $text   = '';
+    my $out      = '';
+    my $sep      = $default_right_sep;
+    my $format   = $default_format;
+    my $fg       = '';
+    my $bg       = '';
+    my $text     = '';
     my $old_text = '';
     foreach (@_) {
         unless (/$sub_delimiter/) {
@@ -91,6 +92,7 @@ sub right {
         }
         ( $fg, $bg, $old_text, $text ) = get_tokens( $_, $format );
         $out .= "#[fg=$bg]$sep#[fg=$fg]#[bg=$bg]$text";
+
         # $out .= "#{?#{==:$old_text,},,#[fg=$bg]$sep#[fg=$fg]#[bg=$bg]$text}";
     }
     return ( $out, $sep );
@@ -124,8 +126,9 @@ sub parse {
         '{' => '}',
     );
     my $last_brace = '';
-    my @braces = ();
-    my @status = ();
+    my @braces     = ();
+    my @status     = ();
+
     foreach ( split( '', $_[1] ) ) {
         if ( $status == 0 and $_ eq $_[0] ) {
             push @tokens, $token;
@@ -153,9 +156,10 @@ sub parse {
                 $status -= 1;
             }
         }
-        push @status, $status,
+        push @status, $status,;
     }
     push @tokens, $token;
+
     # print @status;
     # print("\n" . join("\n", @tokens,) . "\n");
     return @tokens;
@@ -189,6 +193,8 @@ __END__
 
 =head1 NAME
 
-Tmux::StatusBar - change tmux status bar.
+Tmux::StatusBar - A B<not out-of-box> but B<more flexible and powerful> tmux plugin to customize tmux status bar
 
 =head1 DESCRIPTION
+
+A B<not out-of-box> but B<more flexible and powerful> tmux plugin to customize tmux status bar. The biggest difference between other similar plugins is it doesn't provide any variables to control status bar like other plugins, but provides some functions to F<~/.config/tmux/tmux.conf> and make it possible to cooperate with other tmux plugin, which let users to control tmux by a more "tmux" method.

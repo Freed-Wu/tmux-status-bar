@@ -30,7 +30,7 @@ jobs:
           Devel::Cover::Report::Codecovbash
       - name: Test
         run: |
-          git config github.user $GITHUB_REPOSITORY_OWNER
+          git config github.user "$GITHUB_REPOSITORY_OWNER"
           dzil authordeps --missing | cpanm -qn
           dzil cover -test -report codecovbash
       - uses: codecov/codecov-action@v3
@@ -46,7 +46,7 @@ jobs:
           cpanm -qn Dist::Zilla CPAN::Uploader
       - name: Build
         run: |
-          git config github.user $GITHUB_REPOSITORY_OWNER
+          git config github.user "$GITHUB_REPOSITORY_OWNER"
           dzil authordeps --missing | cpanm -qn
           dzil build
           # perl -0777 -ni -e'/## .*?\n\n(.*?)\n\n\n/s; print $1' CHANGELOG.md
@@ -54,7 +54,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: >
           cpan-upload -u ${{secrets.CPAN_USERNAME}}
-          -p ${{secrets.CPAN_PASSWORD}} *.tar.gz
+          -p ${{secrets.CPAN_PASSWORD}} ./*.tar.gz
       - uses: actions/upload-artifact@v3
         if: "! startsWith(github.ref, 'refs/tags/')"
         with:
