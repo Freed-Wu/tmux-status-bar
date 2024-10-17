@@ -60,11 +60,11 @@ by a more "tmux" method.
 
 ```tmux
 # [XXX] can be ignored
-set -g status-left "#{status-left,[[format;][fg_color,bg_color,text;][sep];]...}"
-set -g status-right "#{status-right,[[format;][sep;][fg_color,bg_color,text];]...}"
-set -g window-status-current-format "#{window-status-current-format-left,[format;][sep;]fg_color,bg_color,text;[sep]}"
+set -g status-left "#{status-left:[[format;][fg_color,bg_color,text;][sep];]...}"
+set -g status-right "#{status-right:[[format;][sep;][fg_color,bg_color,text];]...}"
+set -g window-status-current-format "#{window-status-current-format-left:[format;][sep;]fg_color,bg_color,text;[sep]}"
 # or
-set -g window-status-current-format "#{window-status-current-format-right,[format;][sep;]fg_color,bg_color,text;[sep]}"
+set -g window-status-current-format "#{window-status-current-format-right:[format;][sep;]fg_color,bg_color,text;[sep]}"
 ```
 
 For example, in `~/.config/tmux/tmux.conf`:
