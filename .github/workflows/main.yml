@@ -33,7 +33,7 @@ jobs:
           git config github.user "$GITHUB_REPOSITORY_OWNER"
           dzil authordeps --missing | cpanm -qn
           dzil cover -test -report codecovbash
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v5
 
   build:
     runs-on: ubuntu-latest
