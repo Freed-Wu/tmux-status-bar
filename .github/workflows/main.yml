@@ -8,12 +8,8 @@
       - "**.md"
   workflow_dispatch:
 
-# https://github.com/softprops/action-gh-release/issues/236
-permissions:
-  contents: write
-
 jobs:
-  test:
+  build:
     strategy:
       fail-fast: false
       matrix:
@@ -22,47 +18,22 @@ jobs:
           - macos-latest
     runs-on: ${{matrix.runs-on}}
     steps:
-      - uses: actions/checkout@v3
-      - uses: shogo82148/actions-setup-perl@v1
-      - name: Install Dependencies
-        run: >
-          cpanm -qn Dist::Zilla::App::Command::cover
-          Devel::Cover::Report::Codecovbash
-      - name: Test
-        run: |
-          git config github.user "$GITHUB_REPOSITORY_OWNER"
-          dzil authordeps --missing | cpanm -qn
-          dzil cover -test -report codecovbash
-      - uses: codecov/codecov-action@v3
-
-  build:
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - uses: actions/checkout@v3
-      - uses: shogo82148/actions-setup-perl@v1
-      - name: Install Dependencies
-        run: |
-          cpanm -qn Dist::Zilla CPAN::Uploader
-      - name: Build
-        run: |
-          git config github.user "$GITHUB_REPOSITORY_OWNER"
-          dzil authordeps --missing | cpanm -qn
-          dzil build
-          # perl -0777 -ni -e'/## .*?\n\n(.*?)\n\n\n/s; print $1' CHANGELOG.md
-      - name: Upload
-        if: startsWith(github.ref, 'refs/tags/')
-        run: >
-          cpan-upload -u ${{secrets.CPAN_USERNAME}}
-          -p ${{secrets.CPAN_PASSWORD}} ./*.tar.gz
-      - uses: actions/upload-artifact@v3
-        if: "! startsWith(github.ref, 'refs/tags/')"
+      - uses: actions/checkout@v4
+      - uses: xmake-io/github-action-setup-xmake@v1
+      - run: |
+          xmake
+          rm -rf build/.????
+          bin="$(find build -name tmux-powerline-compiler)"
+          install -d build/bin
+          install "$bin" build/bin/"${bin//\//-}"
+      - uses: actions/upload-artifact@v4
         with:
+          name: artifact-${{matrix.runs-on}}
           path: |
-            *.tar.gz
-      - uses: softprops/action-gh-release@v1
+            build/bin/*
+      - uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          # body_path: CHANGELOG.md
+          # body_path: build/CHANGELOG.md
           files: |
-            *.tar.gz
+            build/bin/*

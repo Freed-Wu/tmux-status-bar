@@ -40,6 +40,11 @@ but provides some functions to `~/.config/tmux/tmux.conf` and make it
 possible to cooperate with other tmux plugin, which let users to control tmux
 by a more "tmux" method.
 
+Most tmux plugins to modify status bar is to provide a variable such as
+`#{battery_percentage}`, then substitute it to a string such as `100%`.
+This plugin try to provide a function like `#{func:arg1,...}`, which means
+we must parse tmux syntax challengingly.
+
 ## Similar Projects
 
 - [powerline](https://github.com/powerline/powerline): use
@@ -55,6 +60,8 @@ by a more "tmux" method.
   its code to many different tmux plugins can be better.
 
 ## Usage
+
+### JIT
 
 `~/.config/tmux/tmux.conf`:
 
@@ -137,6 +144,19 @@ save length.
    [tmux-battery](https://github.com/tmux-plugins/tmux-battery).
 5. Display date and time.
 
+### AOT
+
+For speed, you can cache the result. Refer [test/tmux.conf](test/tmux.conf).
+
+```sh
+```
+
+`~/.config/tmux/tmux.conf`:
+
+```tmux
+source ~/.config/tmux/cache/tmux.conf
+```
+
 ## Motivations
 
 I create this plugin for two purposes:
@@ -164,12 +184,24 @@ prompt/status bar for other programs (gdb, lftp, ...), Here is
 
 ### [tpm](https://github.com/tmux-plugins/tpm)
 
+If you use [cache](#AOT), you don't need to install it.
+
 ```tmux
 set -g @plugin Freed-Wu/tmux-status-bar
 run ~/.config/tmux/plugins/tpm/tpm
 ```
 
+Current version uses flex and bison. Build dependencies see
+[shell.nix](shell.nix).
+
+```sh
+xmake
+```
+
 ### [CPAN](https://metacpan.org/dist/Term::Tmux::StatusBar)
+
+[Original version](https://github.com/Freed-Wu/tmux-status-bar/tree/perl) is
+written in perl by regular expression.
 
 ```sh
 cpan tmux-status-bar
