@@ -125,30 +125,37 @@ save length.
 
 1. Display if prefix key is pressed. Provided by
    [tmux-prefix-highlight](https://github.com/tmux-plugins/tmux-prefix-highlight).
-2. A pomodoro timer. Provided by
+1. A pomodoro timer. Provided by
    [tmux-pomodoro-plus](https://github.com/olimorris/tmux-pomodoro-plus).
-3. Display number of GPU servers of my laboratory. Provided by
+1. Display number of GPU servers of my laboratory. Provided by
    [my plugin](https://github.com/Freed-Wu/tmux-bitahub). It can be split to
    three parts:
    1. `#{?#{==:#{bitahub_status_gtx1080ti},},,1080ti #{bitahub_status_gtx1080ti}}`:
       if `#{bitahub_status_gtx1080ti}` get empty result, which means network is
       offline. We don't display `1080ti` to save length.
-   2. `#{?#{||:#{==:#{bitahub_status_rtx3090},},#{==:#{bitahub_status_gtx1080ti},}},,}`:
+   1. `#{?#{||:#{==:#{bitahub_status_rtx3090},},#{==:#{bitahub_status_gtx1080ti},}},,}`:
       when only both `#{bitahub_status_gtx1080ti}` and
       `#{bitahub_status_rtx3090}` are not empty, a separator will be displayed.
-   3. Same as first part.
-4. Display battery percentage and charge time or net speed. That is because for
+   1. Same as first part.
+1. Display battery percentage and charge time or net speed. That is because for
    desktop, which doesn't have a battery. So we display battery information for
    the laptop and net speed for the desktop. The code is similar to above section.
    Provided by [tmux-net-speed](https://github.com/tmux-plugins/tmux-net-speed) and
    [tmux-battery](https://github.com/tmux-plugins/tmux-battery).
-5. Display date and time.
+1. Display date and time.
 
 ### AOT
 
 For speed, you can cache the result. Refer [test/tmux.conf](test/tmux.conf).
 
+`the/path/of/source/tmux.conf`:
+
+```tmux
+set -g status-left "#{status-left:#fffafa,black,#S}"
+```
+
 ```sh
+tmux-powerline-compiler the/path/of/source/tmux.conf ~/.config/tmux/cache/tmux.conf
 ```
 
 `~/.config/tmux/tmux.conf`:
@@ -171,7 +178,7 @@ I create this plugin for two purposes:
   other plugin's jobs.
 - This plugin use tmux script which is the language `~/.config/tmux/tmux.conf`
   uses to configure. I know `powerline`s python, `tmux-powerline`'s bash is
-  more advanced language, However, tmux script is more easy to call other tmux
+  more advanced language, However, tmux script is easier to call other tmux
   plugins, which cannot be ignored.
 
 BTW, at the first screenshot, 0, 1, 2, ... is displayed to `⓪` `①`, `②`, which
@@ -184,7 +191,7 @@ prompt/status bar for other programs (gdb, lftp, ...), Here is
 
 ### [tpm](https://github.com/tmux-plugins/tpm)
 
-If you use [cache](#AOT), you don't need to install it.
+If you use [cache](#aot), you don't need to install it.
 
 ```tmux
 set -g @plugin Freed-Wu/tmux-status-bar
@@ -200,7 +207,7 @@ xmake
 
 ### [CPAN](https://metacpan.org/dist/Term::Tmux::StatusBar)
 
-[Original version](https://github.com/Freed-Wu/tmux-status-bar/tree/perl) is
+[Original version](https://github.com/Freed-Wu/tmux-status-bar/tree/0.0.1) is
 written in perl by regular expression.
 
 ```sh
