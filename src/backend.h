@@ -8,9 +8,9 @@ __BEGIN_DECLS
 #define BUFFER_SIZE 1024
 #define STACK_NUMBER 32
 #define STACK_DEPTH 32
-#define LEFT_SEP  ""
+#define LEFT_SEP ""
 #define RIGHT_SEP ""
-#define FORMAT    " %s "
+#define FORMAT " %s "
 
 typedef enum {
   other,
